@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<job id="job1" xmlns="http://www.springframework.org/schema/batch">
+		<step id="step1">
+			<tasklet>
+				<chunk reader="fileReader" writer="fileWriter" commit-interval="5000"/>
+			</tasklet>
+		</step>
+	</job>
+
+	<bean id="fileReader" class="com.dataextractor.reader.FixedFileItemReader">
+		<property name="resource" value="${batch.fileReader.resource}" />
+		<property name="mappingFile" value="${batch.common.mapping.file}" />
+		<property name="mappingLayoutKey" value="${batch.common.mapping.layout.key}" />
+		<property name="mappingLayoutFile" value="${batch.common.mapping.layout.file}" />
+		<property name="mappingInputLayoutKey" value="${batch.fileReader.mapping.inputLayout.key}" />
+		<property name="mappingInputLayoutFile" value="${batch.fileReader.mapping.inputLayout.file}" />
+		<property name="mappingItemFileKey" value="${batch.common.mapping.itemFile.key}" />
+		<property name="mappingItemFileFile" value="${batch.common.mapping.itemFile.file}" />
+	</bean>
+	
+	<bean id="fileWriter" class="com.dataextractor.writer.FixedFileItemWriter">
+		<property name="outFile" value="${batch.fileWriter.outFile}" />
+		<property name="mappingFile" value="${batch.common.mapping.file}" />
+		<property name="mappingLayoutKey" value="${batch.common.mapping.layout.key}" />
+		<property name="mappingLayoutFile" value="${batch.common.mapping.layout.file}" />
+		<property name="mappingOutputLayoutKey" value="${batch.fileWriter.mapping.outputLayout.key}" />
+		<property name="mappingOutputLayoutFile" value="${batch.fileWriter.mapping.outputLayout.file}" />
+		<property name="mappingItemFileKey" value="${batch.common.mapping.itemFile.key}" />
+		<property name="mappingItemFileFile" value="${batch.common.mapping.itemFile.file}" />
+	</bean>
+	
+	<bean id="logWriter" class="com.dataextractor.ToLoggerItemWriter" />
+
+</beans>

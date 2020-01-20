@@ -1,0 +1,53 @@
+<beanio xmlns="http://www.beanio.org/2012/03"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.beanio.org/2012/03 http://www.beanio.org/2012/03/mapping.xsd">
+
+	<stream name="layoutFile" format="csv">
+		<parser>
+			<property name="delimiter" value="," />
+		</parser>
+		<record name="layout" class="com.dataextractor.model.Layout">
+			<field name="id" />
+			<field name="name" />
+			<field name="encode" />
+		</record>
+	</stream>
+
+	<stream name="inputLayoutFile" format="csv">
+		<parser>
+			<property name="delimiter" value="," />
+		</parser>
+		<record name="inputLayout" class="com.dataextractor.model.InputLayoutItem">
+			<field name="layoutId" />
+			<field name="itemId" />
+			<field name="postion" type="int" />
+			<field name="min_length" type="int" />
+			<field name="max_length" type="int" />
+		</record>
+	</stream>
+	
+	<stream name="outputLayoutFile" format="csv">
+		<parser>
+			<property name="delimiter" value="," />
+		</parser>
+		<record name="outputLayout" class="com.dataextractor.model.OutputLayoutItem">
+			<field name="layoutId" />
+			<segment name="converter" class="com.dataextractor.model.Converter">
+				<field name="classPath" />
+				<field name="extension" />
+				<field name="itemIds"/>
+			</segment>
+		</record>
+	</stream>
+	
+	<stream name="itemFile" format="csv">
+		<parser>
+			<property name="delimiter" value="," />
+		</parser>
+		<record name="item" class="com.dataextractor.model.Item">
+			<field name="id" />
+			<field name="name" />
+		</record>
+	</stream>
+
+</beanio>
