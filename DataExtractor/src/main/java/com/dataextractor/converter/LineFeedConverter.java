@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.dataextractor.model.Item;
 
+/**
+ * 拡張値で指定された改行コードを出力する
+ */
 public class LineFeedConverter implements IConverter {
 
 	public String convert(List<Item> itemList, String extension, String encode) {

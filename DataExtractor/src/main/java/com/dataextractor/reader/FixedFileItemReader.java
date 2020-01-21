@@ -9,8 +9,6 @@ import java.util.Optional;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.SerializationUtils;
-import org.beanio.BeanReader;
-import org.beanio.StreamFactory;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.NonTransientResourceException;
 import org.springframework.batch.item.ParseException;
@@ -19,6 +17,7 @@ import org.springframework.batch.item.UnexpectedInputException;
 import com.dataextractor.model.InputLayoutItem;
 import com.dataextractor.model.Item;
 import com.dataextractor.model.Layout;
+import com.dataextractor.util.LayoutUtils;
 
 import lombok.Data;
 
@@ -27,6 +26,7 @@ public class FixedFileItemReader implements ItemReader<List<Item>> {
 
 	private String resource;
 	private String mappingFile;
+	private String mappingLayoutId;
 	private String mappingLayoutKey;
 	private String mappingLayoutFile;
 	private String mappingInputLayoutKey;
@@ -39,54 +39,24 @@ public class FixedFileItemReader implements ItemReader<List<Item>> {
 	private List<Item> itemList;
 	private BufferedInputStream inputStream;
     
-	public void readLayout() {
+	/**
+	 *  マスタとなるレイアウト読込
+	 */
+	private void readLayout() {
 		
-		if (this.layout == null) {
-			StreamFactory factory = StreamFactory.newInstance();
-			factory.load(this.mappingFile);
-			
-			readLayout(factory);
-			readInputLayoutList(factory);
-			readItemList(factory);
+		// 一度だけ取得
+		if (this.layout == null) {		
+			this.layout = LayoutUtils.readLayout(this.mappingFile, this.mappingLayoutId, this.mappingLayoutKey, this.mappingLayoutFile);
+			this.inputLayoutList = LayoutUtils.readInputLayoutList(this.mappingFile, this.mappingLayoutId, this.mappingInputLayoutKey, this.mappingInputLayoutFile);
+			this.itemList = LayoutUtils.readInputItemList(this.mappingFile, this.mappingItemFileKey, this.mappingItemFileFile, this.inputLayoutList);
 		}
 		
     }
 	
-	protected void readLayout(StreamFactory factory) {
-        BeanReader reader = factory.createReader(
-        		mappingLayoutKey,
-        		new File(mappingLayoutFile));
-
-        this.layout = (Layout) reader.read();
-        reader.close();
-	}
-	
-	protected void readInputLayoutList(StreamFactory factory) {
-        BeanReader reader = factory.createReader(
-        		mappingInputLayoutKey,
-        		new File(mappingInputLayoutFile));
-
-        InputLayoutItem item;
-        inputLayoutList = new ArrayList<InputLayoutItem>();
-        while ((item = (InputLayoutItem) reader.read()) != null) {
-        	inputLayoutList.add(item);
-        }
-        reader.close();
-	}
-	
-	protected void readItemList(StreamFactory factory) {
-        BeanReader reader = factory.createReader(
-        		mappingItemFileKey,
-        		new File(mappingItemFileFile));
-
-        Item item;
-        itemList = new ArrayList<Item>();
-        while ((item = (Item) reader.read()) != null) {
-        	itemList.add(item);
-        }
-        reader.close();
-	}
-	
+	/**
+	 *  固定長ファイル読み込み
+	 *  バイナリデータとして、レイアウトで定義されている項目値長に沿ってファイルを読み込む
+	 */
 	@Override
 	public List<Item> read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
 		readLayout();

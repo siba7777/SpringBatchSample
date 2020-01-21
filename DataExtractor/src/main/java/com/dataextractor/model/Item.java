@@ -9,17 +9,17 @@ import lombok.Data;
 public class Item implements Serializable {
 
 	/**
-	 *  €–ÚID
+	 *  é …ç›®ID
 	 */
 	private String id;
 	
 	/**
-	 *  €–Ú–¼
+	 *  é …ç›®å
 	 */
 	private String name;
 	
 	/**
-	 *  €–Ú’l
+	 *  é …ç›®å€¤
 	 */
 	private byte[] value;
 

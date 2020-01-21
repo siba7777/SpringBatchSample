@@ -9,7 +9,7 @@ import lombok.Data;
 public class LayoutItem implements Serializable {
 
 	/**
-	 *  レイアウトID
+	 *  繝ｬ繧､繧｢繧ｦ繝�ID
 	 */
 	private String layoutId;
 	

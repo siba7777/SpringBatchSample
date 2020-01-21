@@ -5,6 +5,9 @@ import java.util.List;
 
 import com.dataextractor.model.Item;
 
+/**
+ * 項目値を結合して出力する
+ */
 public class JoinValueConverter implements IConverter {
 
 	public String convert(List<Item> itemList, String extension, String encode) {

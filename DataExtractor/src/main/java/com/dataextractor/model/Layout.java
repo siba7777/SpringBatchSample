@@ -9,17 +9,17 @@ import lombok.Data;
 public class Layout implements Serializable {
 
 	/**
-	 *  ƒŒƒCƒAƒEƒgID
+	 *  ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆID
 	 */
 	private String id;
 	
 	/**
-	 *  ƒŒƒCƒAƒEƒg–¼
+	 *  ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆå
 	 */
 	private String name;
 	
 	/**
-	 *  ƒtƒ@ƒCƒ‹ƒGƒ“ƒR[ƒh
+	 *  ãƒ•ã‚¡ã‚¤ãƒ«ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰
 	 */
 	private String encode;
 

@@ -7,7 +7,7 @@ import lombok.Data;
 public class OutputLayoutItem extends LayoutItem {
 
 	/**
-	 *  コンバータ
+	 *  繧ｳ繝ｳ繝舌�ｼ繧ｿ
 	 */
 	private Converter converter;
 

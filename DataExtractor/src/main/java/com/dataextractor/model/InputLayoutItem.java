@@ -7,22 +7,22 @@ import lombok.Data;
 public class InputLayoutItem extends LayoutItem {
 
 	/**
-	 *  €–ÚID
+	 *  é …ç›®ID
 	 */
 	private String itemId;
 	
 	/**
-	 *  ˆÊ’u
+	 *  ä½ç½®
 	 */
 	private int postion;
 	
 	/**
-	 *  Å¬Œ…’·
+	 *  æœ€å°æ¡é•·
 	 */
 	private int min_length;
 	
 	/**
-	 *  Å‘åŒ…’·
+	 *  æœ€å¤§æ¡é•·
 	 */
 	private int max_length;
 

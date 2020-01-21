@@ -15,6 +15,7 @@
 	<bean id="fileReader" class="com.dataextractor.reader.FixedFileItemReader">
 		<property name="resource" value="${batch.fileReader.resource}" />
 		<property name="mappingFile" value="${batch.common.mapping.file}" />
+		<property name="mappingLayoutId" value="${batch.fileReader.mapping.inputLayout.id}" />
 		<property name="mappingLayoutKey" value="${batch.common.mapping.layout.key}" />
 		<property name="mappingLayoutFile" value="${batch.common.mapping.layout.file}" />
 		<property name="mappingInputLayoutKey" value="${batch.fileReader.mapping.inputLayout.key}" />
@@ -26,6 +27,7 @@
 	<bean id="fileWriter" class="com.dataextractor.writer.FixedFileItemWriter">
 		<property name="outFile" value="${batch.fileWriter.outFile}" />
 		<property name="mappingFile" value="${batch.common.mapping.file}" />
+		<property name="mappingLayoutId" value="${batch.fileWriter.mapping.outputLayout.id}" />
 		<property name="mappingLayoutKey" value="${batch.common.mapping.layout.key}" />
 		<property name="mappingLayoutFile" value="${batch.common.mapping.layout.file}" />
 		<property name="mappingOutputLayoutKey" value="${batch.fileWriter.mapping.outputLayout.key}" />
@@ -33,7 +35,5 @@
 		<property name="mappingItemFileKey" value="${batch.common.mapping.itemFile.key}" />
 		<property name="mappingItemFileFile" value="${batch.common.mapping.itemFile.file}" />
 	</bean>
-	
-	<bean id="logWriter" class="com.dataextractor.ToLoggerItemWriter" />
 
 </beans>
