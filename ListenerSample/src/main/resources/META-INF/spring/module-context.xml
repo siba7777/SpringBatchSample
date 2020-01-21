@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<job id="job1" xmlns="http://www.springframework.org/schema/batch">
+		<step id="step1">
+			<tasklet>
+				<chunk reader="reader" writer="writer" commit-interval="1" />
+				<listeners>
+					<listener ref="exampleChunkListener" />
+					<listener ref="exampleItemReadListener" />
+					<listener ref="exampleItemProcessListener" />
+					<listener ref="exampleItemWriteListener" />
+				</listeners>
+			</tasklet>
+			<listeners>
+				<listener ref="exampleStepExecutionListener" />
+			</listeners>
+		</step>
+		<listeners>
+			<listener ref="exampleJobExecutionListener" />
+		</listeners>
+	</job>
+	
+	<bean id="reader" class="com.example.listener.ConsoleReader">
+	</bean>
+	
+	<bean id="writer" class="com.example.listener.ToLoggerItemWriter">
+	</bean>
+
+	<bean id="exampleChunkListener" class="com.example.listener.ExampleChunkListener" />
+	<bean id="exampleItemReadListener" class="com.example.listener.ExampleItemReadListener" />
+	<bean id="exampleItemProcessListener" class="com.example.listener.ExampleItemProcessListener" />
+	<bean id="exampleItemWriteListener" class="com.example.listener.ExampleItemWriteListener" />
+	<bean id="exampleStepExecutionListener" class="com.example.listener.ExampleStepExecutionListener" />
+	<bean id="exampleJobExecutionListener" class="com.example.listener.ExampleJobExecutionListener" />
+
+</beans>
